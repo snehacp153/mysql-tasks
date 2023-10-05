@@ -1,0 +1,192 @@
+create database School;
+use School;
+
+create table Student(Adm_no INT PRIMARY KEY,Name VARCHAR(30),Average INT(20),Sex VARCHAR(10),S_Code INT(30));
+
+insert into Student values(501,"R.jain",98,"M",111);
+insert into Student values(545,"Kavita",73,"F",333);
+insert inti Student values(705,"K.Rashika",85,"F",111);
+insert into Student values(705,"K.Rashika",85,"F",111);
+insert into Student values(754,"Rahul Goel",60,"M",444);
+insert into Student values(892,"Sahil Jain",78,"M",333);
+insert into Student values(935,"Rohan Saini",85,"M",222);
+ insert into Student values(955,"Anjali",64,"F",444);
+insert into Student values(983,"Sneha Aggarval",80,"F",222);
+
+
+1) select * from Student;
+ 
++--------+----------------+---------+------+--------+
+| Adm_no | Name           | Average | Sex  | S_Code |
++--------+----------------+---------+------+--------+
+|    501 | R.jain         |      98 | M    |    111 |
+|    545 | Kavita         |      73 | F    |    333 |
+|    705 | K.Rashika      |      85 | F    |    111 |
+|    754 | Rahul Goel     |      60 | M    |    444 |
+|    892 | Sahil Jain     |      78 | M    |    333 |
+|    935 | Rohan Saini    |      85 | M    |    222 |
+|    955 | Anjali         |      64 | F    |    444 |
+|    983 | Sneha Aggarval |      80 | F    |    222 |
++--------+----------------+---------+------+--------+
+
+
+2) select * from Student where(name="Rohan Saini");
++--------+-------------+---------+------+--------+
+| Adm_no | Name        | Average | Sex  | S_Code |
++--------+-------------+---------+------+--------+
+|    935 | Rohan Saini |      85 | M    |    222 |
++--------+-------------+---------+------+--------+
+
+
+3) mysql> select count(*) as No_of_students from Student;
++----------------+
+| No_of_students |
++----------------+
+|              8 |
++----------------+
+
+4)  select sex,count(*) as no_of_male_students from Student where sex ="M";
++------+---------------------+
+| sex  | no_of_male_students |
++------+---------------------+
+| M    |                   4 |
++------+---------------------+
+select sex,count(*) as no_of_female_students from Student where sex ="F";
++------+-----------------------+
+| sex  | no_of_female_students |
++------+-----------------------+
+| F    |                     4 |
++------+-----------------------+
+
+5)select * from Student order by Name;
++--------+----------------+---------+------+--------+
+| Adm_no | Name           | Average | Sex  | S_Code |
++--------+----------------+---------+------+--------+
+|    955 | Anjali         |      64 | F    |    444 |
+|    705 | K.Rashika      |      85 | F    |    111 |
+|    545 | Kavita         |      73 | F    |    333 |
+|    501 | R.jain         |      98 | M    |    111 |
+|    754 | Rahul Goel     |      60 | M    |    444 |
+|    935 | Rohan Saini    |      85 | M    |    222 |
+|    892 | Sahil Jain     |      78 | M    |    333 |
+|    983 | Sneha Aggarval |      80 | F    |    222 |
++--------+----------------+---------+------+--------+
+
+
+6) select * from Student order by Name desc;
++--------+----------------+---------+------+--------+
+| Adm_no | Name           | Average | Sex  | S_Code |
++--------+----------------+---------+------+--------+
+|    983 | Sneha Aggarval |      80 | F    |    222 |
+|    892 | Sahil Jain     |      78 | M    |    333 |
+|    935 | Rohan Saini    |      85 | M    |    222 |
+|    754 | Rahul Goel     |      60 | M    |    444 |
+|    501 | R.jain         |      98 | M    |    111 |
+|    545 | Kavita         |      73 | F    |    333 |
+|    705 | K.Rashika      |      85 | F    |    111 |
+|    955 | Anjali         |      64 | F    |    444 |
++--------+----------------+---------+------+--------+
+
+7) select Name from Student where Name like'k%';
++-----------+
+| Name      |
++-----------+
+| Kavita    |
+| K.Rashika |
++-----------+
+
+8) select *  from Student where Name like '%i';
++--------+-------------+---------+------+--------+
+| Adm_no | Name        | Average | Sex  | S_Code |
++--------+-------------+---------+------+--------+
+|    935 | Rohan Saini |      85 | M    |    222 |
+|    955 | Anjali      |      64 | F    |    444 |
++--------+-------------+---------+------+--------+
+
+9)select Adm_no,Name,Average*5 as total_mark from Student;
++--------+----------------+------------+
+| Adm_no | Name           | total_mark |
++--------+----------------+------------+
+|    501 | R.jain         |        490 |
+|    545 | Kavita         |        365 |
+|    705 | K.Rashika      |        425 |
+|    754 | Rahul Goel     |        300 |
+|    892 | Sahil Jain     |        390 |
+|    935 | Rohan Saini    |        425 |
+|    955 | Anjali         |        320 |
+|    983 | Sneha Aggarval |        400 |
++--------+----------------+------------+
+
+10)  select * from Student where Average between 80 and 90;
++--------+----------------+---------+------+--------+
+| Adm_no | Name           | Average | Sex  | S_Code |
++--------+----------------+---------+------+--------+
+|    705 | K.Rashika      |      85 | F    |    111 |
+|    935 | Rohan Saini    |      85 | M    |    222 |
+|    983 | Sneha Aggarval |      80 | F    |    222 |
++--------+----------------+---------+------+--------+
+
+11)select * from Student where Average > 80 and S_code = 333;
+Empty set (0.00 sec)
+
+12) select Name,Average  from Student where S_code=222 or  S_code = 333;
++----------------+---------+
+| Name           | Average |
++----------------+---------+
+| Kavita         |      73 |
+| Sahil Jain     |      78 |
+| Rohan Saini    |      85 |
+| Sneha Aggarval |      80 |
++----------------+---------+
+
+
+13) SELECT SUM(Average) as Total from Student;
++-------+
+| Total |
++-------+
+|   623 |
++-------+
+
+
+14) SELECT MAX(Average) as Total from Student;
++-------+
+| Total |
++-------+
+|    98 |
++-------+
+
+15) SELECT MIN(Average) as Total from Student;
++-------+
+| Total |
++-------+
+|    60 |
++-------+
+
+16) SELECT avg(Average) as Total from Student;
++---------+
+| Total   |
++---------+
+| 77.8750 |
++---------+
+
+17)select MAX(Average),MIN(Average),SUM(Average) from Student where S_code = 333;
++--------------+--------------+--------------+
+| MAX(Average) | MIN(Average) | SUM(Average) |
++--------------+--------------+--------------+
+|           78 |           73 |          151 |
++--------------+--------------+--------------+
+
+18)select S_code,COUNT(*) as no_of_students from Student group by S_code;
++--------+----------------+
+| S_code | no_of_students |
++--------+----------------+
+|    111 |              2 |
+|    333 |              2 |
+|    444 |              2 |
+|    222 |              2 |
++--------+----------------+
+
+
+
+
+
