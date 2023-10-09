@@ -1,0 +1,491 @@
+create database employee_db;
+
+create table employee_salary(emp_id int primary key,first_name varchar(20),last_name varchar(20),salary int,joining_date date,department varchar(40));
+insert into salary values(1,"bob","kinto",100000,'2019-01-20',"finance");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into salary values(2,"jerry","kansxo",600000,'2019-01-15',"IT");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salary values(3,"philip","jose",890000,'2019-02-05',"bamking");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into salary values(4,"john","abraham",200000,'2019-02-25',"insurance");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salary values(5,"michael","mathew",220000,'2019-02-28',"finance");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salary values(6,"Alex","chreketo",900000,'2019-05-10',"IT");
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> insert into salary values(7,"yohan","soso",120000,'2019-06-20',"banking");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee_salary;
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |
+|      2 | jerry      | kansxo    | 600000 | 2019-01-15   | IT         |
+|      3 | philip     | jose      | 890000 | 2019-02-05   | bamking    |
+|      4 | john       | abraham   | 200000 | 2019-02-25   | insurance  |
+|      5 | michael    | mathew    | 220000 | 2019-02-28   | finance    |
+|      6 | Alex       | chreketo  | 900000 | 2019-05-10   | IT         |
+|      7 | yohan      | soso      | 120000 | 2019-06-20   | banking    |
++--------+------------+-----------+--------+------------+------------+
+
+
+create table reward_table(employee_ref_id int not null,date_od_reward date,amount int,foreign key(employee_ref_id) references salary(emp_id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into reward_table values(1,'2019-05-11',1000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into reward_table values(2,'2019-02-15',5000);
+Query OK, 1 row affected (0.01 sec)
+
+insert into reward_table values(3,'2019-04-22',2000);
+Query OK, 1 row affected (0.01 sec)
+
+ insert into reward_table values(1,'2019-06-20',8000);
+Query OK, 1 row affected (0.01 sec)
+
+select * from reward_table;
++-----------------+----------------+--------+
+| employee_ref_id | date_od_reward | amount |
++-----------------+----------------+--------+
+|               1 | 2019-05-11     |   1000 |
+|               2 | 2019-02-15     |   5000 |
+|               3 | 2019-04-22     |   2000 |
+|               1 | 2019-06-20     |   8000 |
++-----------------+----------------+--------+
+
+1) select * from employee_salary;
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |
+|      2 | jerry      | kansxo    | 600000 | 2019-01-15   | IT         |
+|      3 | philip     | jose      | 890000 | 2019-02-05   | bamking    |
+|      4 | john       | abraham   | 200000 | 2019-02-25   | insurance  |
+|      5 | michael    | mathew    | 220000 | 2019-02-28   | finance    |
+|      6 | Alex       | chreketo  | 900000 | 2019-05-10   | IT         |
+|      7 | yohan      | soso      | 120000 | 2019-06-20   | banking    |
++--------+------------+-----------+--------+------------+------------+
+
+
+2)  select first_name as employee_name from employee_salary;
++---------------+
+| employee_name |
++---------------+
+| bob           |
+| jerry         |
+| philip        |
+| john          |
+| michael       |
+| Alex          |
+| yohan         |
++---------------+
+
+
+3) select lower(last_name) as last_name from employee_salary;
++-----------+
+| last_name |
++-----------+
+| kinto     |
+| kansxo    |
+| jose      |
+| abraham   |
+| mathew    |
+| chreketo  |
+| soso      |
++-----------+
+
+4) select department from employee_salary;
++------------+
+| department |
++------------+
+| finance    |
+| IT         |
+| bamking    |
+| insurance  |
+| finance    |
+| IT         |
+| banking    |
++------------+
+
+
+5)select left(first_name,4) as first_four_characters from employee_salary;
++-----------------------+
+| first_four_characters |
++-----------------------+
+| bob                   |
+| jerr                  |
+| phil                  |
+| john                  |
+| mich                  |
+| Alex                  |
+| yoha                  |
++-----------------------+
+
+6)  select position('h' in 'john')as position_of_h ;
++---------------+
+| position_of_h |
++---------------+
+|             3 |
++---------------+
+
+7)select trim(first_name) as trimed_name from employee_salary;
++-------------+
+| trimed_name |
++-------------+
+| bob         |
+| jerry       |
+| philip      |
+| john        |
+| michael     |
+| Alex        |
+| yohan       |
++-------------+
+
+8) select concat(first_name,'_',last_name)as full_name from employee_salary;
++----------------+
+| full_name      |
++----------------+
+| bob_kinto      |
+| jerry_kansxo   |
+| philip_jose    |
+| john_abraham   |
+| michael_mathew |
+| Alex_chreketo  |
+| yohan_soso     |
++----------------+
+
+9)select year(joining_date) as join_year,month(joining_date) as join_month,month(joining_date) as join_day from employee_salary;
++-----------+------------+----------+
+| join_year | join_month | join_day |
++-----------+------------+----------+
+|      2019 |          1 |        1 |
+|      2019 |          1 |        1 |
+|      2019 |          2 |        2 |
+|      2019 |          2 |        2 |
+|      2019 |          2 |        2 |
+|      2019 |          5 |        5 |
+|      2019 |          6 |        6 |
++-----------+------------+----------+
+
+10) select * from employee_salary order by first_name asc;
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      6 | Alex       | chreketo  | 900000 | 2019-05-10   | IT         |
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |
+|      2 | jerry      | kansxo    | 600000 | 2019-01-15   | IT         |
+|      4 | john       | abraham   | 200000 | 2019-02-25   | insurance  |
+|      5 | michael    | mathew    | 220000 | 2019-02-28   | finance    |
+|      3 | philip     | jose      | 890000 | 2019-02-05   | bamking    |
+|      7 | yohan      | soso      | 120000 | 2019-06-20   | banking    |
++--------+------------+-----------+--------+--------------+------------+
+7 rows in set (0.00 sec)
+
+11) select * from employee_salary order by first_name asc,salary desc;
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      6 | Alex       | chreketo  | 900000 | 2019-05-10   | IT         |
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |
+|      2 | jerry      | kansxo    | 600000 | 2019-01-15   | IT         |
+|      4 | john       | abraham   | 200000 | 2019-02-25   | insurance  |
+|      5 | michael    | mathew    | 220000 | 2019-02-28   | finance    |
+|      3 | philip     | jose      | 890000 | 2019-02-05   | bamking    |
+|      7 | yohan      | soso      | 120000 | 2019-06-20   | banking    |
++--------+------------+-----------+--------+--------------+------------+
+
+12)select * from employee_salary where first_name in('bob','alex'); 
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |
+|      6 | Alex       | chreketo  | 900000 | 2019-05-10   | IT         |
++--------+------------+-----------+--------+--------------+------------+
+
+13) select * from employee_salary where first_name = 'bob';
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |
++--------+------------+-----------+--------+--------------+------------+
+
+14)select * from employee_salary where last_name like 'k%';
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |
+|      2 | jerry      | kansxo    | 600000 | 2019-01-15   | IT         |
++--------+------------+-----------+--------+--------------+------------+
+2 rows in set (0.00 sec)
+
+
+15)  select * from employee_salary where first_name like '%n';
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      4 | john       | abraham   | 200000 | 2019-02-25   | insurance  |
+|      7 | yohan      | soso      | 120000 | 2019-06-20   | banking    |
++--------+------------+-----------+--------+--------------+------------+
+
+
+
+16) select * from employee_salary where salary between 200000 and 800000;
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      2 | jerry      | kansxo    | 600000 | 2019-01-15   | IT         |
+|      4 | john       | abraham   | 200000 | 2019-02-25   | insurance  |
+|      5 | michael    | mathew    | 220000 | 2019-02-28   | finance    |
++--------+------------+-----------+--------+--------------+------------+
+
+
+17)select * from employee_salary where joining_date >'2019-03-31';
++--------+------------+-----------+--------+--------------+------------+
+| emp_id | first_name | last_name | salary | joining_date | department |
++--------+------------+-----------+--------+--------------+------------+
+|      6 | Alex       | chreketo  | 900000 | 2019-05-10   | IT         |
+|      7 | yohan      | soso      | 120000 | 2019-06-20   | banking    |
++--------+------------+-----------+--------+--------------+------------+
+
+18)elect joining_date as enrollment_date from employee_salary;
++-----------------+
+| enrollment_date |
++-----------------+
+| 2019-01-20      |
+| 2019-01-15      |
+| 2019-02-05      |
+| 2019-02-25      |
+| 2019-02-28      |
+| 2019-05-10      |
+| 2019-06-20      |
++-----------------+
+
+19) select salary.joining_date as date1 ,reward_table.date_od_reward as date2,datediff(reward_table.date_od_reward,salary.joining_date) as
+difference from salary inner join reward_table on salary.emp_id = reward_table.employee_ref_id;
++------------+------------+------------+
+| date1      | date2      | difference |
++------------+------------+------------+
+| 2019-01-20 | 2019-05-11 |        111 |
+| 2019-01-15 | 2019-02-15 |         31 |
+| 2019-02-05 | 2019-04-22 |         76 |
+| 2019-01-20 | 2019-06-20 |        151 |
++------------+------------+------------+
+
+
+20)select current_timestamp;
++---------------------+
+| current_timestamp   |
++---------------------+
+| 2023-10-06 17:28:04 |
++---------------------+
+
+21) select department, sum(salary) as total_salary from employee_salary group by department order by total_salary desc;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| IT         |      1500000 |
+| bamking    |       890000 |
+| finance    |       320000 |
+| insurance  |       200000 |
+| banking    |       120000 |
++------------+--------------+
+
+22)  select department,sum(salary) as total_salary from employee_salary group by department order by 2 DESC;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| IT         |      1500000 |
+| bamking    |       890000 |
+| finance    |       320000 |
+| insurance  |       200000 |
+| banking    |       120000 |
++------------+--------------+
+
+
+23)select department,count(*) as num_employees,sum(salary) as total_salary from employee_salary group by department order by total_salary desc;
++------------+---------------+--------------+
+| department | num_employees | total_salary |
++------------+---------------+--------------+
+| IT         |             2 |      1500000 |
+| bamking    |             1 |       890000 |
+| finance    |             2 |       320000 |
+| insurance  |             1 |       200000 |
+| banking    |             1 |       120000 |
++------------+---------------+--------------+
+
+24) select department,avg(salary) as avg_salary from employee_salary group by department order by avg_salary asc;
++------------+-------------+
+| department | avg_salary  |
++------------+-------------+
+| banking    | 120000.0000 |
+| finance    | 160000.0000 |
+| insurance  | 200000.0000 |
+| IT         | 750000.0000 |
+| bamking    | 890000.0000 |
++------------+-------------+
+
+25)select department,min(salary) as min_salary from employee_salary group by departme
+nt order by min_salary asc;
++------------+------------+
+| department | min_salary |
++------------+------------+
+| finance    |     100000 |
+| banking    |     120000 |
+| insurance  |     200000 |
+| IT         |     600000 |
+| bamking    |     890000 |
++------------+------------+
+
+
+26) select year(joining_date) as membership_year,month(joining_date) as membership_month,count(*) as employee_count from employee_salary group by membership_year,membership_month order by membership_year,membership_month;
++-----------------+------------------+----------------+
+| membership_year | membership_month | employee_count |
++-----------------+------------------+----------------+
+|            2019 |                1 |              2 |
+|            2019 |                2 |              3 |
+|            2019 |                5 |              1 |
+|            2019 |                6 |              1 |
++-----------------+------------------+----------------+
+
+27)select department,sum(salary) as total_salary from employee_salary group by depart
+ment having total_salary >100000 order by total_salary desc;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| IT         |      1500000 |
+| bamking    |       890000 |
+| finance    |       320000 |
+| insurance  |       200000 |
+| banking    |       120000 |
++------------+--------------+
+
+28)SELECT * FROM employee_salary JOIN reward_table ON employee_salary.emp_id = reward_table.employee_ref_id  WHERE reward_table.amount IS NOT NULL;
++--------+------------+-----------+--------+--------------+------------+-----------------+----------------+--------+
+| emp_id | first_name | last_name | salary | joining_date | department | employee_ref_id | date_od_reward | amount |
++--------+------------+-----------+--------+--------------+------------+-----------------+----------------+--------+
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |               1 | 2019-05-11     |   1000 |
+|      2 | jerry      | kansxo    | 600000 | 2019-01-15   | IT         |               2 | 2019-02-15     |   5000 |
+|      3 | philip     | jose      | 890000 | 2019-02-05   | bamking    |               3 | 2019-04-22     |   2000 |
+|      1 | bob        | kinto     | 100000 | 2019-01-20   | finance    |               1 | 2019-06-20     |   8000 |
++--------+------------+-----------+--------+--------------+------------+-----------------+----------------+--------+
+
+29) select salary,case when first_name = 'bob' then salary * 0.20 when first_name = 'alex' then salary * 0.10 else salary * 0.15 end as calculated_percentage from employee_salary;
++--------+-----------------------+
+| salary | calculated_percentage |
++--------+-----------------------+
+| 100000 |              20000.00 |
+| 600000 |              90000.00 |
+| 890000 |             133500.00 |
+| 200000 |              30000.00 |
+| 220000 |              33000.00 |
+| 900000 |              90000.00 |
+| 120000 |              18000.00 |
++--------+-----------------------+
+
+30)SELECt CASE WHEN Department = 'IT' THEN 'IT services' WHEN Department = 'Finance' THEN 'Financial services' WHEN Department = 'Banking'
+ THEN 'Banking services' ELSE Department END AS Department FROM employee_salary;
++--------------------+
+| Department         |
++--------------------+
+| Financial services |
+| IT services        |
+| bamking            |
+| insurance          |
+| Financial services |
+| IT services        |
+| Banking services   |
++--------------------+
+
+31)delete from reward_table where amount=1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from reward_table;
++-----------------+----------------+--------+
+| employee_ref_id | date_od_reward | amount |
++-----------------+----------------+--------+
+|               1 | 2019-05-11     |   1000 |
+|               2 | 2019-02-15     |   5000 |
+|               3 | 2019-04-22     |   2000 |
+|               1 | 2019-06-20     |   8000 |
++-----------------+----------------+--------+
+
+
+32)SELECT first_name,amount FROM employee_salary JOIN reward_table ON employee_salary.emp_id = reward_table.employee_ref_id  WHERE reward_table.amount is NOT NULL;
++------------+--------+
+| first_name | amount |
++------------+--------+
+| bob        |   1000 |
+| jerry      |   5000 |
+| philip     |   2000 |
+| bob        |   8000 |
++------------+--------+
+
+33)update reward_table set amount =1000 where employee_ref_id = (select emp_id from employee_salary where first_name = 'bob');
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 2  Changed: 1  Warnings: 0
+
+mysql> select * from reward_table;
++-----------------+----------------+--------+
+| employee_ref_id | date_od_reward | amount |
++-----------------+----------------+--------+
+|               1 | 2019-05-11     |   1000 |
+|               2 | 2019-02-15     |   5000 |
+|               3 | 2019-04-22     |   2000 |
+|               1 | 2019-06-20     |   1000 |
++-----------------+----------------+--------+
+
+
+34) SELECT   employee_salary.first_Name,   reward_table.amount FROM salary JOIN reward_table ON employee_salary.emp_id = reward_table.employee_ref_id WHERE reward_table.amount > 2000;
++------------+--------+
+| first_Name | amount |
++------------+--------+
+| jerry      |   5000 |
+| bob        |   8000 |
++------------+--------+
+
+35)SELECT   employee_salary.first_Name,  ifnull( reward_table.amount,0)as reward_amount FROM employee_salary left JOIN reward_table ON salary.emp_id = reward_table.employee_ref_id;_
++------------+---------------+
+| first_Name | reward_amount |
++------------+---------------+
+| bob        |          8000 |
+| bob        |          1000 |
+| jerry      |          5000 |
+| philip     |          2000 |
+| john       |             0 |
+| michael    |             0 |
+| Alex       |             0 |
+| yohan      |             0 |
++------------+---------------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
